@@ -154,9 +154,12 @@ export const getCategoryEntries = async (
     status,
   }
 
+  if (starred) {
+    baseParams.starred = true
+  }
+
   const extraParams = {
     globally_visible: !showHiddenFeeds,
-    starred,
     ...filterParams,
   }
 
@@ -174,10 +177,9 @@ export const getFeedEntries = async (feedId, status = null, starred = false, fil
     status,
   }
 
-  const extraParams = {
-    starred,
-    ...filterParams,
+  if (starred) {
+    baseParams.starred = true
   }
 
-  return apiClient.get(buildEntriesUrl(baseParams, extraParams))
+  return apiClient.get(buildEntriesUrl(baseParams, filterParams))
 }
